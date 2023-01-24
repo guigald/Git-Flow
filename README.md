@@ -3,10 +3,11 @@
 
 ### Nomenclatura de Branches
 
-- `feature/bcl-456-novo-modal-sms`
+- `feat/bcl-456-novo-modal-sms`
 - `fix/bcl-456-evento-nao-carrega`
-- `feature/novo-modal-sms`
+- `feat/novo-modal-sms`
 - `fix/evento-nao-carrega`
+- `refac/troca-loading-modal`
 
 ### Mensagem de Commit
 
@@ -68,77 +69,88 @@ See also: #456, #789
 
 ### Passo 1: Começar uma nova funcionalidade ou correção
 
-1. `git checkout develop`
-   * Muda para a branch develop
+```bash
+1. git checkout develop
+   # Muda para a branch develop
 
-2. `git fetch origin -a`
-   * Atualiza as referências entre os repositórios remoto e local
+2. git fetch origin -a
+   # Atualiza as referências entre os repositórios remoto e local
 
-3. `git reset --hard FETCH_HEAD`
-   * traz todos os commits da branch develop
+3. git reset --hard FETCH_HEAD
+   # traz todos os commits da branch develop
 
-4. `git checkout -b [feat/fix/refac]/[cardId]-[nome-da-funcionalidade]`
-   * Cria sua nova branch feature
+4. git checkout -b [feat/fix/refac]/[cardId]-[nome-da-funcionalidade]`
+   # Cria sua nova branch feature
 
 5. Desenvolva, desenvolva e desenvolva!
 
-6. `git status`
-   `git add`
-   `git commit`
-   * Verifica suas mudanças, adiciona no stage e faz o commit
+6. git status
+   git add
+   git commit
+   # Verifica suas mudanças, adiciona no stage e faz o commit
+```
 
 ### Passo 2: Enviar sua nova funcionalidade
+```bash
+1. git checkout develop
+   # Muda para a branch develop
 
-1. `git checkout develop`
-   * Muda para a branch develop
+2. git fetch origin
+   # Atualiza as referências entre os repositórios remoto e local
 
-2. `git fetch origin`
-   * Atualiza as referências entre os repositórios remoto e local
+3. git pull origin develop
+   # Traz todos os commits da branch develop
 
-3. `git pull origin develop`
-   * Traz todos os commits da branch develop
+4. git checkout -b [feat/fix/refac]/[cardId]-[nome-da-funcionalidade]
+   # Volta para a branch que você estava trabalhando
 
-4. `git checkout -b [feat/fix/refac]/[cardId]-[nome-da-funcionalidade]`
-   * Volta para a branch que você estava trabalhando
+5. git rebase origin/develop
+   # Atualiza sua branch atual sem o merge, mantendo o histórico em ordem
+   # Se houver conflitos, resolva-os antes de continuar!
+   # O código que você fez sempre será o "current" e o que veio da branch develop será o "incoming"
 
-5. `git rebase origin/develop`
-   * Atualiza sua branch atual sem o merge, mantendo o histórico em ordem
-   * Se houver conflitos, resolva-os antes de continuar!
-   * O código que você fez sempre será o "current" e o que veio da branch develop será o "incoming"
+6. git status
+   git add
+   git commit
+   # Verifica suas mudanças, adiciona no stage e faz o commit
 
-6. `git status`
-   `git add`
-   `git commit`
-   * Verifica suas mudanças, adiciona no stage e faz o commit
-
-7. `git push origin [feat|fix|refac]/[cardId]-[nome-da-funcionalidade]`
-   * Envia suas alterações para o repositório remoto
+7. git push origin [feat|fix|refac]/[cardId]-[nome-da-funcionalidade]
+   # Envia suas alterações para o repositório remoto
 
 8. Faça o seu PR! Lembrem-se de usar o template de descrição.
-
+```
 ### Problemas comuns
 
 #### Cenário 1: Seu colega fez uma alteração no repositório remoto e você está no meio do seu desenvolvimento, mas precisa atualizar a sua branch:
+```bash
+1. git fetch origin
+   # Atualiza as referências entre os repositórios remoto e local
 
-1. `git fetch origin`
-   * Atualiza as referências entre os repositórios remoto e local
-2. `git stash`
-   * Cria uma branch temporária contendo suas modificações até o momento.
-3. `git rebase origin/[develop|branch do colega]`
-   * Atualiza sua branch atual sem o merge, mantendo o histórico em ordem
-   * Se houver conflitos, resolva-os antes de continuar!
-4. `git stash pop`
-   * Retorna suas modificações que estavam na branch temporária para a sua branch atual, porém agora atualizada.
+2. git stash
+   # Cria uma branch temporária contendo suas modificações até o momento.
+
+3. git rebase origin/[develop|branch-do-colega]
+   # Atualiza sua branch atual sem o merge, mantendo o histórico em ordem
+   # Se houver conflitos, resolva-os antes de continuar!
+
+4. git stash pop
+   # Retorna suas modificações que estavam na branch temporária para a sua branch atual, porém agora atualizada.
+```
 
 #### Cenário 2: Caso o seu git rebase tenha dado conflito:
+```bash
 1. Resolva os conflitos. Caso necessário chame o autor das alterações para solucionarem as modificações necessárias.
-2. `git add` + caminho dos arquivos que os conflitos foram resolvidos
-   * Adiciona os arquivos no stage
-3. `git rebase --continue`
-   * Conclui o rebase após a resolução dos conflitos ocorridos
+2. git add [+ caminho dos arquivos que os conflitos foram resolvidos]
+   # Adiciona os arquivos no stage
 
+3. git rebase --continue
+   # Conclui o rebase após a resolução dos conflitos ocorridos
+```
 #### Cenário 3: Caso o conflito tenha ocorrido após o `git stash pop`
+```bash
 1. Resolva os conflitos. Caso necessário chame o autor das alterações para solucionarem as modificações necessárias.
-2. `git add` + caminho dos arquivos que os conflitos foram resolvidos
-   * Adiciona os arquivos no stage
+2. git add [+ caminho dos arquivos que os conflitos foram resolvidos]
+   # Adiciona os arquivos no stage
+
 3. Continue seu desenvolvimento normalmente.
+```
