@@ -66,48 +66,55 @@ See also: #456, #789
 
 ## Guia prático
 
-### Passo 1: Começar uma nova funcionalidade
+### Passo 1: Começar uma nova funcionalidade ou correção
 
 1. `git checkout develop`
    * Muda para a branch develop
-2. `git fetch origin`
+
+2. `git fetch origin -a`
    * Atualiza as referências entre os repositórios remoto e local
-3. `git pull origin develop`
+
+3. `git reset --hard FETCH_HEAD`
    * traz todos os commits da branch develop
-4. `git checkout -b feature/my-new-branch`
+
+4. `git checkout -b [feat/fix/refac]/[cardId]-[nome-da-funcionalidade]`
    * Cria sua nova branch feature
-5. Desenvolva sua nova funcionalidade!
-6. `git status, add and commit`
+
+5. Desenvolva, desenvolva e desenvolva!
+
+6. `git status`
+   `git add`
+   `git commit`
    * Verifica suas mudanças, adiciona no stage e faz o commit
 
 ### Passo 2: Enviar sua nova funcionalidade
 
 1. `git checkout develop`
    * Muda para a branch develop
+
 2. `git fetch origin`
    * Atualiza as referências entre os repositórios remoto e local
+
 3. `git pull origin develop`
    * Traz todos os commits da branch develop
-4. `git rebase origin/develop`
+
+4. `git checkout -b [feat/fix/refac]/[cardId]-[nome-da-funcionalidade]`
+   * Volta para a branch que você estava trabalhando
+
+5. `git rebase origin/develop`
    * Atualiza sua branch atual sem o merge, mantendo o histórico em ordem
    * Se houver conflitos, resolva-os antes de continuar!
+   * O código que você fez sempre será o "current" e o que veio da branch develop será o "incoming"
 
-	>Caso esteja desenvolvendo em React, execute:
-	>>4.1. `npm run test -- -u`
-	>>* Executa todos os testes do código e atualiza os Snapshots
-
-5. `git status, add and commit`
+6. `git status`
+   `git add`
+   `git commit`
    * Verifica suas mudanças, adiciona no stage e faz o commit
-   * Durante o commit é executado o linter e o formatador de código para manter a qualidade e consistência do código
 
-	>Caso esteja desenvolvendo em React, execute: 
-	>>5.1. `npm run build`
-	>>* Responsável por criar os artefatos finais para a produção.
-	>>* Durante o processo de build, também é executado a verificação de tipos do TypeScript.
-
-6. `git push origin feature/my-new-branch`
+7. `git push origin [feat|fix|refac]/[cardId]-[nome-da-funcionalidade]`
    * Envia suas alterações para o repositório remoto
-7. Faça o seu MR/PR no GitLab! Lembrem-se de usar o template de descrição.
+
+8. Faça o seu PR! Lembrem-se de usar o template de descrição.
 
 ### Problemas comuns
 
@@ -117,13 +124,13 @@ See also: #456, #789
    * Atualiza as referências entre os repositórios remoto e local
 2. `git stash`
    * Cria uma branch temporária contendo suas modificações até o momento.
-3. `git rebase origin/develop`
+3. `git rebase origin/[develop|branch do colega]`
    * Atualiza sua branch atual sem o merge, mantendo o histórico em ordem
    * Se houver conflitos, resolva-os antes de continuar!
 4. `git stash pop`
    * Retorna suas modificações que estavam na branch temporária para a sua branch atual, porém agora atualizada.
 
-#### Cenário 2: Caso o seu git rebase deu conflito:
+#### Cenário 2: Caso o seu git rebase tenha dado conflito:
 1. Resolva os conflitos. Caso necessário chame o autor das alterações para solucionarem as modificações necessárias.
 2. `git add` + caminho dos arquivos que os conflitos foram resolvidos
    * Adiciona os arquivos no stage
